@@ -1,8 +1,7 @@
 require("http").createServer((_, res) => res.end("Berjalan coy")).listen(8080)
 
-const sessionName = 'yusril'
-const donet = 'https://saweria.co/sansekai'
-const owner = ['6287878817169']
+const sessionName = "MilleniumID";
+const dev = ["6285161504205"];
 const { default: sansekaiConnect, useSingleFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto, getContentType } = require("@adiwajshing/baileys")
 const { state, saveState } = useSingleFileAuthState(`./${sessionName}.json`)
 const pino = require('pino')
@@ -121,7 +120,7 @@ function smsg(conn, m, store) {
 async function startHisoka() {
     const { version, isLatest } = await fetchLatestBaileysVersion()
 	console.log(`using WA v${version.join('.')}, isLatest: ${isLatest}`)
-    console.log(color(figlet.textSync('Wa-OpenAI', {
+    console.log(color(figlet.textSync('BOT IT4601', {
 		font: 'Standard',
 		horizontalLayout: 'default',
 		vertivalLayout: 'default',
@@ -131,7 +130,7 @@ async function startHisoka() {
     const client = sansekaiConnect({
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
-        browser: ['Wa-OpenAI - Sansekai','Safari','3.0'],
+        browser: ['IT4601 - BOT','Safari','3.0'],
         auth: state
     })
 
@@ -233,8 +232,16 @@ async function startHisoka() {
             else if (reason === DisconnectReason.timedOut) { console.log("Connection TimedOut, Reconnecting..."); startHisoka(); }
             else { console.log(`Unknown DisconnectReason: ${reason}|${connection}`); startHisoka(); }
         } else if(connection === 'open') {
-            console.log('Bot conneted to server')
-            client.sendMessage(owner+'@s.whatsapp.net', { text: `Bot started!\n\njangan lupa support ya bang :)\n${donet}` })
+            console.log("Bot conneted to server");
+            // create text like this "Bot is running! 'timestamp'"
+            let timeNow = new Date().toLocaleString("id", {
+                timeZone: "Asia/Jakarta",
+            });
+
+            // Send to developer the bot is running
+            client.sendMessage(dev + "@s.whatsapp.net", {
+                text: `Bot started! ${timeNow}`,
+            });
         }
         // console.log('Connected...', update)
     })
